@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Navigate to Watchlist Screen
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => ChatScreen()),
+                  MaterialPageRoute(builder: (context) => ChartScreen()),
                 );
               }
 
