@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'chart_page.dart';
 import 'home_page.dart';
 
 class WatchlistScreen extends StatelessWidget {
