@@ -12,7 +12,7 @@ class ChartScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChartScreen> {
   double investmentAmount = 1.0; // Default investment amount in Lakh
 
   @override
