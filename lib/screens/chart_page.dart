@@ -7,7 +7,7 @@ import 'package:watchlist/screens/watchlist_page.dart';
 
 import 'home_page.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChartScreen extends StatefulWidget {
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
