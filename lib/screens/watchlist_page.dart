@@ -302,7 +302,13 @@ class WatchlistScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => WatchlistScreen()),
               );
             }
-
+else if (index == 1) {
+              // Navigate to Watchlist Screen
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ChartScreen()),
+              );
+            }
 
         },
         items: const [
