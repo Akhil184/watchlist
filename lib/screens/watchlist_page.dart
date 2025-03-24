@@ -13,6 +13,41 @@ class WatchlistScreen extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+
+    void _showDeleteConfirmationDialog(BuildContext context, String watchlist, Function(String) onDelete) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.black,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            title: Row(
+              children: [
+                Icon(Icons.warning_amber_rounded, color: Colors.orange),
+                SizedBox(width: 8),
+                Text("Do you want to delete $watchlist?", style: TextStyle(color: Colors.white,fontSize:12.sp)),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("No", style: TextStyle(color: Colors.blue)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () {
+                  onDelete(watchlist);
+                  Navigator.pop(context); // Close the dialog
+                },
+                child: Text("Yes", style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+
     void _showEditWatchlistBottomSheet(BuildContext context, List<String> watchlists, Function(String) onDelete) {
       showModalBottomSheet(
         context: context,
@@ -44,23 +79,33 @@ class WatchlistScreen extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: watchlists.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white24),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ListTile(
-                        title: Text(
-                          watchlists[index],
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            onDelete(watchlists[index]); // Callback to delete the watchlist
-                          },
-                        ),
+                    TextEditingController controller = TextEditingController(text: watchlists[index]);
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: controller,
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white10,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: Colors.white24),
+                                ),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              _showDeleteConfirmationDialog(context, watchlists[index], onDelete);
+                            },
+                          ),
+                        ],
                       ),
                     );
                   },
@@ -71,6 +116,11 @@ class WatchlistScreen extends StatelessWidget {
         },
       );
     }
+
+
+
+
+
     Widget _watchlistItem(String name) {
       return ListTile(
         title: Text(name, style: TextStyle(color: Colors.white)),
